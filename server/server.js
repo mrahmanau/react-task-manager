@@ -38,7 +38,7 @@ app.get("/", (req, res) => {
 
 // Mount all task-related routes under the /tasks URL path
 // Example: GET /tasks will call the controller to fetch all tasks
-app.use("/tasks", taskRoutes);
+app.use("/api/tasks", taskRoutes);
 app.use("/api/auth", authRoutes);
 
 // Use the error-handling middleware at the end of all route declarations
