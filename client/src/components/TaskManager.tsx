@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getTasks, createTask, Task } from "../services/taskService";
-import "./TaskManager.css"; // 👈 Import the custom CSS
+import "./TaskManager.css";
 
 const TaskManager: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
