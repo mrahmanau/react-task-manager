@@ -9,7 +9,7 @@ export interface Task {
 
 // GET all tasks
 export const getTasks = async (): Promise<Task[]> => {
-  const response = await axios.get("/tasks");
+  const response = await axios.get("api/tasks");
   return response.data;
 };
 
@@ -17,7 +17,7 @@ export const getTasks = async (): Promise<Task[]> => {
 export const createTask = async (title: string, description: string) => {
   try {
     console.log("I am going to create a new task");
-    const response = await axios.post("/tasks", {
+    const response = await axios.post("api/tasks", {
       title,
       description,
       completed: false,

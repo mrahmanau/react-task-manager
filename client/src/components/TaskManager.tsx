@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getTasks, createTask, Task } from "../services/taskService";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./TaskManager.css";
 
 const TaskManager: React.FC = () => {
@@ -7,12 +9,14 @@ const TaskManager: React.FC = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
+  // Fetch the tasks from the backend
   const fetchTasks = async () => {
     try {
       const data = await getTasks();
       setTasks(data);
     } catch (err) {
       console.error("Error fetching tasks:", err);
+      toast.error("Failed to fetch tasks.");
     }
   };
 
@@ -22,9 +26,11 @@ const TaskManager: React.FC = () => {
       await createTask(title, description);
       setTitle("");
       setDescription("");
+      toast.success("Task added successfully!");
       fetchTasks();
     } catch (err) {
       console.error("Error creating task:", err);
+      toast.error("Failed to create task.");
     }
   };
 
