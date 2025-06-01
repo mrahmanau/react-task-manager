@@ -1,59 +1,41 @@
-// Load environment variables from .env file
+// Load environment variables from .env file (like MongoDB URI, PORT, etc.)
 require("dotenv").config();
 
-// Import necessary modules
+// Import the Express framework to create the server and handle HTTP requests
 const express = require("express");
-const mongoose = require("mongoose");
-const Task = require("./models/Task");
-const taskRoutes = require("./routes/tasks");
+
+// Import custom database connection function
+const connectDB = require("./config/db");
+
+// Import task-related routes
+const taskRoutes = require("./routes/taskRoutes");
 
 // Create an instance of an Express app
 const app = express();
 
-// Middleware to parse JSON requests
+// Connect to MongoDB using Mongoose (handled in a separate file for clean structure)
+connectDB();
+
+// Middleware to automatically parse incoming JSON requests (e.g., from frontend)
 app.use(express.json());
 
-// Retrieve the MongoDB connection string from .env
-const MONGO_URI = process.env.MONGO_URI;
-
-// Connect to MongoDB using Mongoose
-mongoose
-  .connect(MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log("MongoDB Connected Successfully."))
-  .catch((error) => console.error("MongoDB Connection Error:", error));
-
-app.get("/add-task", async (req, res) => {
-  try {
-    const newTask = new Task({
-      title: "Learn React",
-      description: "Build a task tracker",
-    });
-
-    const newTask1 = new Task({
-      title: "Build Angular Application",
-      description: "BDWebtutor is an application built using Angular.",
-    });
-
-    // Save the task to MongoDB
-    await newTask.save();
-    await newTask1.save();
-    res.send("✅ Task added successfully.");
-  } catch (error) {
-    res.status(500).send("❌ Error adding a new task." + error.message);
-  }
-});
-
-// Define a basic route to check if the server is running
+// Define a simple GET route for the root path to verify server is running
 app.get("/", (req, res) => {
-  res.send("Server is up and running");
+  res.send("🚀 Task Manager API is running...");
 });
 
-// Use routes under /tasks endpoint
+// Mount all task-related routes under the /tasks URL path
+// Example: GET /tasks will call the controller to fetch all tasks
 app.use("/tasks", taskRoutes);
 
-// Start the server and listen on a defined port
+// Import custom error-handling middleware (optional but useful for production)
+const errorHandler = require("./middlewares/errorHandler");
+
+// Use the error-handling middleware at the end of all route declarations
+app.use(errorHandler);
+
+// Set the server port (from .env or default to 5000)
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on ${PORT}`));
+
+// Start the server and listen for incoming requests
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
