@@ -9,6 +9,7 @@ const TaskManager: React.FC = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
+  // Fetch the tasks from the backend
   const fetchTasks = async () => {
     try {
       const data = await getTasks();
