@@ -5,6 +5,7 @@ import Register from "./components/auth/Register";
 import { ToastContainer } from "react-toastify";
 import Login from "./components/auth/Login";
 import Home from "./components/home/Home";
+import { ProctectedRoute } from "./routes/private-route";
 
 function App() {
   return (
@@ -16,7 +17,14 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="login" element={<Login />} />
-        <Route path="/tasks" element={<TaskManager />} />
+        <Route
+          path="/tasks"
+          element={
+            <ProctectedRoute>
+              <TaskManager />
+            </ProctectedRoute>
+          }
+        />
       </Routes>
     </Router>
   );
