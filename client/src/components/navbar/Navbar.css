@@ -1,0 +1,85 @@
+/* Navbar container styles */
+.navbar {
+  padding: 1rem 2rem;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; /* allow wrapping on small screens */
+  gap: 1rem;
+}
+
+/* Brand styling */
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+/* Navigation links container */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* Navigation link styles */
+.nav-links a {
+  color: var(--color-white);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover,
+.nav-links a:focus {
+  color: var(--color-primary-hover);
+  text-decoration: underline;
+}
+
+/* Greeting text style */
+.nav-links span {
+  font-weight: 500;
+  margin-right: 1rem;
+}
+
+/* Logout button style */
+.nav-links button {
+  background-color: var(--color-secondary);
+  color: var(--color-white);
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.nav-links button:hover,
+.nav-links button:focus {
+  background-color: #545b62;
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  /* Change nav-links to vertical stack */
+  .nav-links {
+    width: 100%;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  /* Make links and buttons full width */
+  .nav-links a,
+  .nav-links span,
+  .nav-links button {
+    flex: none; /* reset flex-grow/shrink */
+    width: 100%;
+    text-align: left;
+    margin-bottom: 0.5rem;
+  }
+}

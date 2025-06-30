@@ -22,6 +22,12 @@ const taskSchema = new mongoose.Schema({
     type: Date,
     default: null,
   },
+  // Associate task with the user who created it
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: "User", // this links to the User model
+  },
 });
 
 // Create a Mongoose model based on the schema
